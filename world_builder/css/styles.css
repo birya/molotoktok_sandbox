@@ -1,0 +1,205 @@
+/* Основні стилі */
+* {
+    margin: 0;
+    padding: 0;
+    touch-action: manipulation;
+    user-select: none;
+}
+
+body {
+    background: #87CEEB;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+}
+
+canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* UI елементи */
+.ui {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: white;
+    background: rgba(0,0,0,0.8);
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 12px;
+    z-index: 100;
+}
+
+.current-block-display {
+    position: absolute;
+    top: 60px;
+    left: 10px;
+    background: rgba(0,0,0,0.9);
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #FFD700;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.current-block-icon {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #FFD700;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    background: rgba(255,215,0,0.2);
+}
+
+/* Керування */
+.controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+}
+
+.hotbar {
+    display: flex;
+    justify-content: center;
+    background: rgba(0,0,0,0.9);
+    padding: 8px;
+    gap: 2px;
+}
+
+.hotbar-slot {
+    width: 45px;
+    height: 45px;
+    border: 3px solid #666;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    background: rgba(255,255,255,0.1);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.hotbar-slot.selected {
+    border-color: #FFD700;
+    background: rgba(255,215,0,0.4);
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255,215,0,0.8);
+}
+
+.hotbar-slot:hover {
+    background: rgba(255,255,255,0.2);
+    transform: scale(1.05);
+}
+
+.block-name {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 10px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.hotbar-slot.selected .block-name {
+    opacity: 1;
+}
+
+/* Мобільне керування */
+.mobile-controls {
+    display: flex;
+    height: 80px;
+    background: rgba(0,0,0,0.8);
+}
+
+.left-controls {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 20px;
+}
+
+.right-controls {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 20px;
+    gap: 10px;
+}
+
+.joystick {
+    width: 80px;
+    height: 80px;
+    background: rgba(255,255,255,0.2);
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 50%;
+    position: relative;
+}
+
+.joystick-knob {
+    width: 30px;
+    height: 30px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.action-btn {
+    width: 50px;
+    height: 50px;
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* Десктопний UI */
+.desktop-ui {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    background: rgba(0,0,0,0.8);
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    z-index: 100;
+    display: none;
+}
+
+.controls.desktop-mode {
+    display: none;
+}

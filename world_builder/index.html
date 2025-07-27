@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Світобудівник 2D</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    
+    <div class="ui">
+        <div>🎮 Світобудівник</div>
+        <div id="device-info">Завантаження...</div>
+    </div>
+    
+    <div class="current-block-display">
+        <div class="current-block-icon" id="currentBlockIcon">🟫</div>
+        <div>
+            <div style="font-weight: bold;" id="currentBlockName">Земля</div>
+            <div style="font-size: 11px; opacity: 0.8;" id="currentBlockNumber">Блок #1</div>
+        </div>
+    </div>
+    
+    <div class="desktop-ui" id="desktopUI">
+        <div>🖥️ Керування ПК:</div>
+        <div>WASD - Рух</div>
+        <div>Пробіл - Стрибок</div>
+        <div>ЛКМ - Поставити</div>
+        <div>ПКМ - Видалити</div>
+        <div>1-8 - Вибір блоку</div>
+    </div>
+    
+    <div class="controls" id="mobileControls">
+        <div class="hotbar">
+            <div class="hotbar-slot selected" data-block="1">
+                🟫<div class="block-name">Земля</div>
+            </div>
+            <div class="hotbar-slot" data-block="2">
+                🟩<div class="block-name">Трава</div>
+            </div>
+            <div class="hotbar-slot" data-block="3">
+                ⬜<div class="block-name">Камінь</div>
+            </div>
+            <div class="hotbar-slot" data-block="4">
+                🟦<div class="block-name">Вода</div>
+            </div>
+            <div class="hotbar-slot" data-block="5">
+                🟥<div class="block-name">Лава</div>
+            </div>
+            <div class="hotbar-slot" data-block="6">
+                ⬛<div class="block-name">Коренна порода</div>
+            </div>
+            <div class="hotbar-slot" data-block="7">
+                🟤<div class="block-name">Деревина</div>
+            </div>
+            <div class="hotbar-slot" data-block="8">
+                🍃<div class="block-name">Листя</div>
+            </div>
+        </div>
+        
+        <div class="mobile-controls">
+            <div class="left-controls">
+                <div class="joystick" id="joystick">
+                    <div class="joystick-knob" id="joystickKnob"></div>
+                </div>
+            </div>
+            
+            <div class="right-controls">
+                <div class="action-btn" id="jumpBtn">СТРИБОК</div>
+                <div class="action-btn" id="buildBtn">БУДУВАТИ</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Завантаження скриптів в правильному порядку -->
+    <script src="js/config.js"></script>
+    <script src="js/blocks.js"></script>
+    <script src="js/world.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/physics.js"></script>
+    <script src="js/renderer.js"></script>
+    <script src="js/controls.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
