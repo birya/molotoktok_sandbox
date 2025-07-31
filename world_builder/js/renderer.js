@@ -61,6 +61,12 @@ function renderBlock(x, y, blockType) {
         case 8: // Листя
             renderLeavesTexture(blockX, blockY);
             break;
+        case 9: // Двері
+            renderDoorTexture(blockX, blockY, x, y);
+            break;
+        case 10: // Вікно
+            renderWindowTexture(blockX, blockY);
+            break;
     }
     
     // Контури блоків
@@ -94,6 +100,52 @@ function renderLeavesTexture(x, y) {
     ctx.fillRect(x + 20, y + 8, 12, 8);
     ctx.fillRect(x + 8, y + 20, 16, 8);
     ctx.fillRect(x + 24, y + 24, 8, 8);
+}
+
+function renderDoorTexture(x, y, blockX, blockY) {
+    const isOpen = isDoorOpen(blockX, blockY);
+    
+    if (isOpen) {
+        // Open door: partially transparent or offset
+        ctx.fillStyle = 'rgba(139, 69, 19, 0.3)';
+        ctx.fillRect(x + CONFIG.BLOCK_SIZE * 0.8, y, CONFIG.BLOCK_SIZE * 0.2, CONFIG.BLOCK_SIZE);
+        
+        // Door handle
+        ctx.fillStyle = '#FFD700';
+        ctx.fillRect(x + CONFIG.BLOCK_SIZE * 0.85, y + CONFIG.BLOCK_SIZE * 0.45, 4, 4);
+    } else {
+        // Closed door: full wooden texture
+        ctx.fillStyle = '#8B4513';
+        ctx.fillRect(x, y, CONFIG.BLOCK_SIZE, CONFIG.BLOCK_SIZE);
+        
+        // Door panels
+        ctx.fillStyle = '#654321';
+        ctx.fillRect(x + 4, y + 4, CONFIG.BLOCK_SIZE - 8, CONFIG.BLOCK_SIZE * 0.4);
+        ctx.fillRect(x + 4, y + CONFIG.BLOCK_SIZE * 0.6, CONFIG.BLOCK_SIZE - 8, CONFIG.BLOCK_SIZE * 0.35);
+        
+        // Door handle
+        ctx.fillStyle = '#FFD700';
+        ctx.fillRect(x + CONFIG.BLOCK_SIZE - 8, y + CONFIG.BLOCK_SIZE * 0.45, 4, 4);
+    }
+}
+
+function renderWindowTexture(x, y) {
+    // Window frame
+    ctx.fillStyle = '#8B4513';
+    ctx.fillRect(x, y, CONFIG.BLOCK_SIZE, CONFIG.BLOCK_SIZE);
+    
+    // Glass (transparent blue)
+    ctx.fillStyle = 'rgba(135, 206, 235, 0.6)';
+    ctx.fillRect(x + 4, y + 4, CONFIG.BLOCK_SIZE - 8, CONFIG.BLOCK_SIZE - 8);
+    
+    // Window cross
+    ctx.fillStyle = '#654321';
+    ctx.fillRect(x + CONFIG.BLOCK_SIZE/2 - 1, y + 4, 2, CONFIG.BLOCK_SIZE - 8);
+    ctx.fillRect(x + 4, y + CONFIG.BLOCK_SIZE/2 - 1, CONFIG.BLOCK_SIZE - 8, 2);
+    
+    // Shine effect
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+    ctx.fillRect(x + 6, y + 6, 8, 8);
 }
 
 function renderFallingBlocks() {

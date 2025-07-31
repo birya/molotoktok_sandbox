@@ -93,35 +93,48 @@ function checkPlayerCollisions() {
     for (let x = playerBlockX; x <= Math.floor((player.x + player.width) / CONFIG.BLOCK_SIZE); x++) {
         for (let y = playerBlockY; y <= Math.floor((player.y + player.height) / CONFIG.BLOCK_SIZE); y++) {
             const block = getBlock(x, y);
-            if (BLOCK_TYPES[block] && BLOCK_TYPES[block].solid) {
-                const blockLeft = x * CONFIG.BLOCK_SIZE;
-                const blockRight = (x + 1) * CONFIG.BLOCK_SIZE;
-                const blockTop = y * CONFIG.BLOCK_SIZE;
-                const blockBottom = (y + 1) * CONFIG.BLOCK_SIZE;
+            if (BLOCK_TYPES[block]) {
+                // Special handling for doors and windows
+                let isCollidable = BLOCK_TYPES[block].solid;
                 
-                if (player.x < blockRight && player.x + player.width > blockLeft &&
-                    player.y < blockBottom && player.y + player.height > blockTop) {
+                if (block === 9) {
+                    // Door: only solid when closed
+                    isCollidable = !isDoorOpen(x, y);
+                } else if (block === 10) {
+                    // Window: never solid
+                    isCollidable = false;
+                }
+                
+                if (isCollidable) {
+                    const blockLeft = x * CONFIG.BLOCK_SIZE;
+                    const blockRight = (x + 1) * CONFIG.BLOCK_SIZE;
+                    const blockTop = y * CONFIG.BLOCK_SIZE;
+                    const blockBottom = (y + 1) * CONFIG.BLOCK_SIZE;
                     
-                    if (player.vy > 0 && player.y < blockTop) {
-                        player.y = blockTop - player.height;
-                        player.vy = 0;
-                        player.onGround = true;
-                    } else if (player.vy < 0 && player.y > blockBottom) {
-                        player.y = blockBottom;
-                        player.vy = 0;
-                    }
-                    
-                    if (player.vx > 0 && player.x < blockLeft) {
-                        if (player.onGround && getBlock(x, y - 1) === 0) {
+                    if (player.x < blockRight && player.x + player.width > blockLeft &&
+                        player.y < blockBottom && player.y + player.height > blockTop) {
+                        
+                        if (player.vy > 0 && player.y < blockTop) {
                             player.y = blockTop - player.height;
-                        } else {
-                            player.x = blockLeft - player.width;
+                            player.vy = 0;
+                            player.onGround = true;
+                        } else if (player.vy < 0 && player.y > blockBottom) {
+                            player.y = blockBottom;
+                            player.vy = 0;
                         }
-                    } else if (player.vx < 0 && player.x > blockRight) {
-                        if (player.onGround && getBlock(x, y - 1) === 0) {
-                            player.y = blockTop - player.height;
-                        } else {
-                            player.x = blockRight;
+                        
+                        if (player.vx > 0 && player.x < blockLeft) {
+                            if (player.onGround && getBlock(x, y - 1) === 0) {
+                                player.y = blockTop - player.height;
+                            } else {
+                                player.x = blockLeft - player.width;
+                            }
+                        } else if (player.vx < 0 && player.x > blockRight) {
+                            if (player.onGround && getBlock(x, y - 1) === 0) {
+                                player.y = blockTop - player.height;
+                            } else {
+                                player.x = blockRight;
+                            }
                         }
                     }
                 }
