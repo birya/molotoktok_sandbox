@@ -74,12 +74,49 @@ canvas {
     padding-bottom: env(safe-area-inset-bottom, 10px);
 }
 
-.hotbar {
+/* Block selector dropdown */
+.block-selector {
     display: flex;
     justify-content: center;
     background: rgba(0,0,0,0.9);
+    padding: 15px;
+}
+
+.block-dropdown {
+    background: rgba(0,0,0,0.9);
+    color: white;
+    border: 3px solid #FFD700;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    min-width: 200px;
+    max-width: 300px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.block-dropdown:hover {
+    background: rgba(255,215,0,0.1);
+    box-shadow: 0 0 15px rgba(255,215,0,0.5);
+}
+
+.block-dropdown:focus {
+    box-shadow: 0 0 20px rgba(255,215,0,0.8);
+    transform: scale(1.02);
+}
+
+.block-dropdown option {
+    background: rgba(0,0,0,0.95);
+    color: white;
     padding: 8px;
-    gap: 2px;
+    font-size: 16px;
+}
+
+/* Legacy hotbar styles - hidden as replaced by dropdown */
+.hotbar {
+    display: none;
 }
 
 .hotbar-slot {
@@ -202,6 +239,10 @@ canvas {
     display: none;
 }
 
-.controls.desktop-mode {
+.controls.desktop-mode .mobile-controls {
     display: none;
+}
+
+.controls.desktop-mode .block-selector {
+    display: flex;
 }
