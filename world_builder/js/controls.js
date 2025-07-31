@@ -22,8 +22,11 @@ function initControls() {
 function handleKeyDown(e) {
     keys[e.key] = true;
     const num = parseInt(e.key);
-    if (num >= 1 && num <= 8) {
+    if (num >= 1 && num <= 9) {
         selectedBlock = num;
+        updateHotbar();
+    } else if (e.key === '0') {
+        selectedBlock = 10;
         updateHotbar();
     }
 }
@@ -44,12 +47,28 @@ function handleMouseMove(e) {
 
 function handleMouseDown(e) {
     if (!isMobile) {
+        // Update mouse position in case mousemove wasn't triggered
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+        mouse.worldX = camera.x + mouse.x / zoom;
+        mouse.worldY = camera.y + mouse.y / zoom;
+        
         const blockX = Math.floor(mouse.worldX / CONFIG.BLOCK_SIZE);
         const blockY = Math.floor(mouse.worldY / CONFIG.BLOCK_SIZE);
         
         if (e.button === 0) {
-            setBlock(blockX, blockY, selectedBlock);
+            // Left click: place block or interact with door
+            const existingBlock = getBlock(blockX, blockY);
+            if (existingBlock === 9) {
+                // Click on door to toggle it
+                toggleDoor(blockX, blockY);
+            } else {
+                // Place new block
+                setBlock(blockX, blockY, selectedBlock);
+            }
         } else if (e.button === 2) {
+            // Right click: remove block
             setBlock(blockX, blockY, 0);
         }
     }
@@ -134,7 +153,13 @@ function initMobileControls() {
         const blockY = Math.floor(worldY / CONFIG.BLOCK_SIZE);
         
         if (buildMode) {
-            setBlock(blockX, blockY, selectedBlock);
+            // Check if clicking on a door to toggle it
+            const existingBlock = getBlock(blockX, blockY);
+            if (existingBlock === 9) {
+                toggleDoor(blockX, blockY);
+            } else {
+                setBlock(blockX, blockY, selectedBlock);
+            }
         } else {
             setBlock(blockX, blockY, 0);
         }
@@ -150,7 +175,7 @@ function initHotbar() {
         // Handle dropdown change
         dropdown.addEventListener('change', function() {
             const newBlock = parseInt(this.value);
-            if (newBlock >= 1 && newBlock <= 8) {
+            if (newBlock >= 1 && newBlock <= 10) {
                 selectedBlock = newBlock;
                 updateHotbar();
             }
