@@ -15,13 +15,19 @@ function initUI() {
 }
 
 function updateHotbar() {
-    const slots = document.querySelectorAll('.hotbar-slot');
+    // Update dropdown selection
+    const dropdown = document.getElementById('blockDropdown');
+    if (dropdown) {
+        dropdown.value = selectedBlock.toString();
+    }
     
+    // Update legacy hotbar slots if they exist (for backwards compatibility)
+    const slots = document.querySelectorAll('.hotbar-slot');
     for (let i = 0; i < slots.length; i++) {
         slots[i].classList.toggle('selected', i + 1 === selectedBlock);
     }
     
-    // Оновлення поточного блоку
+    // Update current block display
     const currentBlock = BLOCK_TYPES[selectedBlock];
     if (currentBlock) {
         document.getElementById('currentBlockIcon').textContent = currentBlock.icon;

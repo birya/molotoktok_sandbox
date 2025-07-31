@@ -142,21 +142,27 @@ function initMobileControls() {
 }
 
 function initHotbar() {
-    const slots = document.querySelectorAll('.hotbar-slot');
-    for (let i = 0; i < slots.length; i++) {
-        (function(index) {
-            slots[index].addEventListener('click', function() {
-                selectedBlock = index + 1;
+    const dropdown = document.getElementById('blockDropdown');
+    if (dropdown) {
+        // Set default selected value
+        dropdown.value = selectedBlock.toString();
+        
+        // Handle dropdown change
+        dropdown.addEventListener('change', function() {
+            const newBlock = parseInt(this.value);
+            if (newBlock >= 1 && newBlock <= 8) {
+                selectedBlock = newBlock;
                 updateHotbar();
-            });
-            
-            if (isMobile) {
-                slots[index].addEventListener('touchstart', function(e) {
-                    e.preventDefault();
-                    selectedBlock = index + 1;
-                    updateHotbar();
-                });
             }
-        })(i);
+        });
+        
+        // Prevent dropdown from interfering with game controls
+        dropdown.addEventListener('mousedown', function(e) {
+            e.stopPropagation();
+        });
+        
+        dropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
     }
 }
