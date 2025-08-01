@@ -160,11 +160,23 @@ function hasWoodSupport(x, y, radius) {
 
 function isDoorOpen(x, y) {
     // Check if door at this position is open
-    const doorId = x + ',' + y;
-    const doorIdBelow = x + ',' + (y + 1);
+    // Door states are stored using the top block position as the key
     
-    // Check both possible door IDs (top or bottom part)
-    return doorStates[doorId] === true || doorStates[doorIdBelow] === true;
+    // If this is the top part of a door (has door block below), use this position as key
+    if (getBlock(x, y + 1) === 9) {
+        const doorId = x + ',' + y;
+        return doorStates[doorId] === true;
+    }
+    
+    // If this is the bottom part of a door (has door block above), use top position as key
+    if (getBlock(x, y - 1) === 9) {
+        const topDoorId = x + ',' + (y - 1);
+        return doorStates[topDoorId] === true;
+    }
+    
+    // Single block door (fallback) - shouldn't normally happen
+    const doorId = x + ',' + y;
+    return doorStates[doorId] === true;
 }
 
 function toggleDoor(x, y) {
