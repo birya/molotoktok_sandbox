@@ -175,7 +175,7 @@ function initHotbar() {
         // Handle dropdown change
         dropdown.addEventListener('change', function() {
             const newBlock = parseInt(this.value);
-            if (newBlock >= 1 && newBlock <= 10) {
+            if (newBlock >= 1 && newBlock <= 11) {
                 selectedBlock = newBlock;
                 updateHotbar();
             }
