@@ -1,0 +1,63 @@
+---
+name: Ручний розгорт GitHub Pages
+
+'on':
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Виберіть бранч для розгортання'
+        required: true
+        default: 'main'
+        type: choice
+        options:
+          - main
+          - copilot/fix-2
+          - copilot/fix-3
+          - copilot/fix-6
+          - copilot/fix-8
+          - copilot/fix-10
+          - copilot/fix-12
+          - copilot/fix-14
+          - copilot/fix-16
+
+# Дозволяє GITHUB_TOKEN записувати до GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Дозволяє лише один розгорт одночасно
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # Збірка сайту
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch }}
+
+      - name: Налаштування GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Створення артефакту для розгортання
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Завантажуємо папку world_builder як корінь сайту
+          path: './world_builder'
+
+  # Розгортання на GitHub Pages
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Розгорт на GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
