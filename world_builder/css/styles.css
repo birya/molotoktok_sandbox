@@ -35,6 +35,35 @@ canvas {
     z-index: 100;
 }
 
+.save-controls {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.save-btn {
+    background: rgba(255,215,0,0.2);
+    border: 1px solid #FFD700;
+    border-radius: 4px;
+    color: white;
+    padding: 6px 10px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: Arial, sans-serif;
+}
+
+.save-btn:hover {
+    background: rgba(255,215,0,0.4);
+    box-shadow: 0 0 8px rgba(255,215,0,0.5);
+    transform: scale(1.02);
+}
+
+.save-btn:active {
+    transform: scale(0.98);
+}
+
 .current-block-display {
     position: absolute;
     top: 60px;
