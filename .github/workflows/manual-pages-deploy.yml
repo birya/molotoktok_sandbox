@@ -1,6 +1,7 @@
+---
 name: Ручний розгорт GitHub Pages
 
-on:
+'on':
   workflow_dispatch:
     inputs:
       branch:
@@ -39,17 +40,17 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ inputs.branch }}
-          
+
       - name: Налаштування GitHub Pages
         uses: actions/configure-pages@v5
-        
+
       - name: Створення артефакту для розгортання
         uses: actions/upload-pages-artifact@v3
         with:
           # Завантажуємо папку world_builder як корінь сайту
           path: './world_builder'
 
-  # Розгортання на GitHub Pages  
+  # Розгортання на GitHub Pages
   deploy:
     environment:
       name: github-pages
