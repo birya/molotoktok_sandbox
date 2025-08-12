@@ -67,7 +67,7 @@ canvas {
 .current-block-display {
     position: absolute;
     top: 60px;
-    left: 10px;
+    left: 150px;
     background: rgba(0,0,0,0.9);
     color: white;
     padding: 10px;
