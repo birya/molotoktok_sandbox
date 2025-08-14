@@ -11,7 +11,8 @@ const BLOCK_TYPES = {
     8: { color: '#228B22', solid: false, name: 'Листя', icon: '🍃' },
     9: { color: '#8B4513', solid: true, door: true, name: 'Двері', icon: '🚪' },
     10: { color: '#87CEEB', solid: false, name: 'Вікно', icon: '🪟' },
-    11: { color: '#D2B48C', solid: false, name: 'Дерев\'яна стіна', icon: '🧱' }
+    11: { color: '#D2B48C', solid: false, name: 'Дерев\'яна стіна', icon: '🧱' },
+    12: { color: '#696969', solid: true, name: 'Зовнішня стіна', icon: '🧱' }
 };
 
 // Функції для роботи з блоками
