@@ -53,7 +53,7 @@ function loadGame() {
         }
         
         // Відновлення вибраного блоку
-        if (typeof state.selectedBlock === 'number' && state.selectedBlock >= 1 && state.selectedBlock <= 11) {
+        if (typeof state.selectedBlock === 'number' && state.selectedBlock >= 1 && state.selectedBlock <= 12) {
             selectedBlock = state.selectedBlock;
         }
         
