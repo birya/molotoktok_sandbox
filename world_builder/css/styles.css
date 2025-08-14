@@ -35,11 +35,34 @@ canvas {
     z-index: 100;
 }
 
+.save-status {
+    margin-top: 8px;
+    padding: 5px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 3px;
+    border-left: 3px solid #FFD700;
+}
+
 .save-controls {
     margin-top: 10px;
     display: flex;
     flex-direction: column;
     gap: 5px;
+}
+
+.save-help {
+    margin-top: 8px;
+    font-size: 10px;
+}
+
+.save-help details {
+    padding: 5px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 3px;
+}
+
+.save-help details[open] {
+    background: rgba(0,0,0,0.4);
 }
 
 .save-btn {
@@ -62,6 +85,19 @@ canvas {
 
 .save-btn:active {
     transform: scale(0.98);
+}
+
+.save-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: rgba(128,128,128,0.2);
+    border-color: #666;
+}
+
+.save-btn:disabled:hover {
+    background: rgba(128,128,128,0.2);
+    box-shadow: none;
+    transform: none;
 }
 
 .current-block-display {

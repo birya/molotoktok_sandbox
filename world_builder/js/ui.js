@@ -15,6 +15,7 @@ function initUI() {
     document.getElementById('saveBtn').addEventListener('click', function() {
         if (saveGame()) {
             showNotification('💾 Гру збережено!', 'success');
+            updateSaveStatus(); // Оновити статус після збереження
         } else {
             showNotification('❌ Помилка збереження!', 'error');
         }
@@ -23,8 +24,10 @@ function initUI() {
     document.getElementById('loadBtn').addEventListener('click', function() {
         if (loadGame()) {
             updateHotbar();
+            updateSaveStatus();
             showNotification('📁 Гру завантажено!', 'success');
         } else {
+            updateSaveStatus(); // Оновити статус навіть при помилці
             showNotification('❌ Збереження не знайдено!', 'error');
         }
     });
@@ -34,9 +37,13 @@ function initUI() {
             deleteSave();
             initWorld();
             updateHotbar();
+            updateSaveStatus(); // Оновити статус після видалення
             showNotification('🆕 Новий світ створено!', 'success');
         }
     });
+    
+    // Початкове оновлення статусу збереження
+    updateSaveStatus();
     
     updateHotbar();
 }
@@ -85,6 +92,31 @@ function showNotification(message, type = 'info') {
     }, 3000);
 }
 
+function updateSaveStatus() {
+    const saveIndicator = document.getElementById('saveIndicator');
+    const saveInfo = document.getElementById('saveInfo');
+    const loadBtn = document.getElementById('loadBtn');
+    
+    if (hasSavedGame()) {
+        const info = getSaveInfo();
+        if (info) {
+            saveIndicator.textContent = '💾 Збереження знайдено';
+            saveInfo.textContent = `Версія ${info.version} • ${info.sizeKB}KB • Позиція гравця: ${info.playerPos}`;
+            loadBtn.disabled = false;
+            loadBtn.title = 'Завантажити збережену гру з localStorage';
+        } else {
+            saveIndicator.textContent = '⚠️ Пошкоджене збереження';
+            saveInfo.textContent = 'Збереження існує, але не може бути прочитане';
+            loadBtn.disabled = true;
+            loadBtn.title = 'Збереження пошкоджене та не може бути завантажене';
+        }
+    } else {
+        saveIndicator.textContent = '📄 Збережень не знайдено';
+        saveInfo.textContent = 'Натисніть "Зберегти" щоб створити збереження';
+        loadBtn.disabled = true;
+        loadBtn.title = 'Немає збережень для завантаження';
+    }
+}
 function updateHotbar() {
     // Update dropdown selection
     const dropdown = document.getElementById('blockDropdown');
