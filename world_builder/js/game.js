@@ -21,6 +21,9 @@ function initGame() {
         updateHotbar();
     }
     
+    // Оновлення статусу збереження після ініціалізації
+    updateSaveStatus();
+    
     // Обробник зміни розміру вікна
     window.addEventListener('resize', resizeCanvas);
     

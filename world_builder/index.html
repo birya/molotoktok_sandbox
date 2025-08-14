@@ -12,10 +12,24 @@
     <div class="ui">
         <div>🎮 Світобудівник</div>
         <div id="device-info">Завантаження...</div>
+        <div class="save-status" id="saveStatus">
+            <div id="saveIndicator">📄 Перевірка збережень...</div>
+            <div id="saveInfo" style="font-size: 10px; opacity: 0.7;"></div>
+        </div>
         <div class="save-controls">
-            <button id="saveBtn" class="save-btn">💾 Зберегти</button>
-            <button id="loadBtn" class="save-btn">📁 Завантажити</button>
-            <button id="newGameBtn" class="save-btn">🆕 Нова гра</button>
+            <button id="saveBtn" class="save-btn" title="Зберегти поточну гру в localStorage браузера">💾 Зберегти</button>
+            <button id="loadBtn" class="save-btn" title="Завантажити збережену гру з localStorage">📁 Завантажити</button>
+            <button id="newGameBtn" class="save-btn" title="Створити новий світ (видалить поточне збереження)">🆕 Нова гра</button>
+        </div>
+        <div class="save-help">
+            <details>
+                <summary style="cursor: pointer; font-size: 10px;">ℹ️ Де зберігається гра?</summary>
+                <div style="font-size: 9px; margin-top: 5px; opacity: 0.8;">
+                    Гра зберігається в localStorage вашого браузера.<br>
+                    Збереження доступне тільки в цьому браузері на цьому домені.<br>
+                    Приватний режим та очищення даних видаляють збереження.
+                </div>
+            </details>
         </div>
     </div>
     
