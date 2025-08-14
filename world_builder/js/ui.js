@@ -27,6 +27,7 @@ function initUI() {
             updateSaveStatus();
             showNotification('📁 Гру завантажено!', 'success');
         } else {
+            updateSaveStatus(); // Оновити статус навіть при помилці
             showNotification('❌ Збереження не знайдено!', 'error');
         }
     });
